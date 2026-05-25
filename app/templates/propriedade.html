@@ -1,0 +1,41 @@
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+        Tabela de Propriedades
+    </h2>
+
+    <table class="table table-striped table-bordered">
+
+        <thead class="thead-dark">
+
+            <tr>
+
+                <th>Nome</th>
+                <th>Localização</th>
+                <th>Tamanho Área</th>
+                <th>Produtor</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for propriedades in propriedades %}
+
+            <tr>
+
+                <td>{{ propriedades.nome }}</td>
+                <td>{{ propriedades.localizacao }}</td>
+                <td>{{ propriedades.tamanho_area }}</td>
+                <td>{{ propriedades.produtor }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>

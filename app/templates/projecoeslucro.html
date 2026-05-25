@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+        Tabela de Projeções de Lucro
+    </h2>
+
+    <table class="table table-striped table-bordered">
+
+        <thead class="thead-dark">
+
+            <tr>
+
+                <th>Custo Total</th>
+                <th>Receita Estimada</th>
+                <th>Lucro Estimado</th>
+                <th>Safra</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for projecoes in projecoes %}
+
+            <tr>
+
+                <td>{{ projecoes.custo_total }}</td>
+                <td>{{ projecoes.receita_estimada }}</td>
+                <td>{{ projecoes.lucro_estimado }}</td>
+                <td>{{ projecoes.safra }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

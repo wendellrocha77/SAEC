@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+        Tabela de Cenários
+    </h2>
+
+    <table class="table table-striped table-bordered">
+
+        <thead class="thead-dark">
+
+            <tr>
+
+                <th>Tipo</th>
+                <th>Projeção Lucro</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for cenarios in cenarios %}
+
+            <tr>
+
+                <td>{{ cenarios.tipo }}</td>
+                <td>{{ cenarios.projecao_lucro }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

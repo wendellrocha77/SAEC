@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+        Tabela de Produtores
+    </h2>
+
+    <table class="table table-striped table-bordered">
+
+        <thead class="thead-dark">
+
+            <tr>
+
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Email</th>
+                <th>Telefone</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for produtores in produtores %}
+
+            <tr>
+
+                <td>{{ produtores.nome }}</td>
+                <td>{{ produtores.cpf }}</td>
+                <td>{{ produtores.email }}</td>
+                <td>{{ produtores.telefone }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

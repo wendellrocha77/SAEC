@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+        Tabela de Tipos de Custo
+    </h2>
+
+    <table class="table table-striped table-bordered">
+
+        <thead class="thead-dark">
+
+            <tr>
+
+                <th>Nome</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for tipos_custo in tipos_custo %}
+
+            <tr>
+
+                <td>{{ tipos_custo.nome }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+        Tabela de Indicadores Econômicos
+    </h2>
+
+    <table class="table table-striped table-bordered">
+
+        <thead class="thead-dark">
+
+            <tr>
+
+                <th>Nome</th>
+                <th>Valor</th>
+                <th>Data</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for indicadores in indicadores %}
+
+            <tr>
+
+                <td>{{ indicadores.nome }}</td>
+                <td>{{ indicadores.valor }}</td>
+                <td>{{ indicadores.data }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}
