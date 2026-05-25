@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 <div class="container mt-5">
 
     <h2 class="mb-4">
@@ -21,14 +25,14 @@
 
         <tbody>
 
-            {% for propriedades in propriedades %}
+            {% for propriedade in propriedades %}
 
             <tr>
 
-                <td>{{ propriedades.nome }}</td>
-                <td>{{ propriedades.localizacao }}</td>
-                <td>{{ propriedades.tamanho_area }}</td>
-                <td>{{ propriedades.produtor }}</td>
+                <td>{{ propriedade.nome }}</td>
+                <td>{{ propriedade.localizacao }}</td>
+                <td>{{ propriedade.tamanho_area }}</td>
+                <td>{{ propriedade.produtor }}</td>
 
             </tr>
 
@@ -39,3 +43,5 @@
     </table>
 
 </div>
+
+{% endblock %}

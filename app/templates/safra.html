@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 <div class="container mt-5">
 
     <h2 class="mb-4">
@@ -21,14 +25,14 @@
 
         <tbody>
 
-            {% for safras in safras %}
+            {% for safra in safras %}
 
             <tr>
 
-                <td>{{ safras.ano }}</td>
-                <td>{{ safras.produtividade }}</td>
-                <td>{{ safras.area_plantada }}</td>
-                <td>{{ safras.propriedade }}</td>
+                <td>{{ safra.ano }}</td>
+                <td>{{ safra.produtividade }}</td>
+                <td>{{ safra.area_plantada }}</td>
+                <td>{{ safra.propriedade }}</td>
 
             </tr>
 
@@ -39,3 +43,5 @@
     </table>
 
 </div>
+
+{% endblock %}

@@ -2,185 +2,42 @@ from django.contrib import admin
 from django.urls import path
 from app.views import *
 
+print("URLS CARREGADAS")
 
 urlpatterns = [
 
-    # ==========================================
-    # ADMIN
-    # ==========================================
-
     path('admin/', admin.site.urls),
-
-
-    # ==========================================
-    # INDEX
-    # ==========================================
 
     path('', IndexView.as_view(), name='index'),
 
+    path('produtor/', ProdutorView.as_view(), name='produtor'),
 
-    # ==========================================
-    # PRODUTOR
-    # ==========================================
+    path('propriedade/', PropriedadeView.as_view(), name='propriedade'),
 
-    path(
-        'produtor/',
-        ProdutoresView.as_view(),
-        name='produtor'
-    ),
+    path('safra/', SafraView.as_view(), name='safra'),
 
+    path('tipocusto/', TipoCustoView.as_view(), name='tipocusto'),
 
-    # ==========================================
-    # PROPRIEDADE
-    # ==========================================
+    path('custoproducao/', CustoProducaoView.as_view(), name='custoproducao'),
 
-    path(
-        'propriedade/',
-        PropriedadesView.as_view(),
-        name='propriedade'
-    ),
+    path('insumo/', InsumoView.as_view(), name='insumo'),
 
+    path('dadoclimatico/', DadoClimaticoView.as_view(), name='dadoclimatico'),
 
-    # ==========================================
-    # SAFRA
-    # ==========================================
+    path('precocafe/', PrecoCafeView.as_view(), name='precocafe'),
 
-    path(
-        'safra/',
-        SafrasView.as_view(),
-        name='safra'
-    ),
+    path('projecaolucro/', ProjecaoLucroView.as_view(), name='projecaolucro'),
 
+    path('cenario/', CenarioView.as_view(), name='cenario'),
 
-    # ==========================================
-    # TIPO CUSTO
-    # ==========================================
+    path('relatorio/', RelatorioView.as_view(), name='relatorio'),
 
-    path(
-        'tipocusto/',
-        TiposCustoView.as_view(),
-        name='tipocusto'
-    ),
+    path('usuario/', UsuarioView.as_view(), name='usuario'),
 
+    path('historicoanalise/', HistoricoAnaliseView.as_view(), name='historicoanalise'),
 
-    # ==========================================
-    # CUSTO PRODUÇÃO
-    # ==========================================
+    path('produtividade/', ProdutividadeView.as_view(), name='produtividade'),
 
-    path(
-        'custoproducao/',
-        CustosProducaoView.as_view(),
-        name='custoproducao'
-    ),
-
-
-    # ==========================================
-    # INSUMO
-    # ==========================================
-
-    path(
-        'insumo/',
-        InsumosView.as_view(),
-        name='insumo'
-    ),
-
-
-    # ==========================================
-    # DADO CLIMÁTICO
-    # ==========================================
-
-    path(
-        'dadoclimatico/',
-        DadosClimaticosView.as_view(),
-        name='dadoclimatico'
-    ),
-
-
-    # ==========================================
-    # PREÇO CAFÉ
-    # ==========================================
-
-    path(
-        'precocafe/',
-        PrecosCafeView.as_view(),
-        name='precocafe'
-    ),
-
-
-    # ==========================================
-    # PROJEÇÃO LUCRO
-    # ==========================================
-
-    path(
-        'projecaolucro/',
-        ProjecoesLucroView.as_view(),
-        name='projecaolucro'
-    ),
-
-
-    # ==========================================
-    # CENÁRIO
-    # ==========================================
-
-    path(
-        'cenario/',
-        CenariosView.as_view(),
-        name='cenario'
-    ),
-
-
-    # ==========================================
-    # RELATÓRIO
-    # ==========================================
-
-    path(
-        'relatorio/',
-        RelatoriosView.as_view(),
-        name='relatorio'
-    ),
-
-
-    # ==========================================
-    # USUÁRIO
-    # ==========================================
-
-    path(
-        'usuario/',
-        UsuariosView.as_view(),
-        name='usuario'
-    ),
-
-
-    # ==========================================
-    # HISTÓRICO ANÁLISE
-    # ==========================================
-
-    path(
-        'historicoanalise/',
-        HistoricosAnaliseView.as_view(),
-        name='historicoanalise'
-    ),
-
-
-    # ==========================================
-    # PRODUTIVIDADE
-    # ==========================================
-
-    path(
-        'produtividade/',
-        ProdutividadesView.as_view(),
-        name='produtividade'
-    ),
-
-
-    # ==========================================
-    # INDICADOR ECONÔMICO
-    # ==========================================
-
-    path(
-        'indicadoreconomico/',
-        IndicadoresEconomicosView.as_view(),
-        name='indicadoreconomico'
-    ),
+    path('indicadoreconomico/', IndicadorEconomicoView.as_view(), name='indicadoreconomico'),
 
 ]

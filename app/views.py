@@ -1,13 +1,56 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
+
+class LoginView(View):
+
+    def get(self, request):
+
+        return render(
+            request,
+            'login.html'
+        )
+
+    def post(self, request):
+
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(
+            request,
+            username=username,
+            password=password
+        )
+
+        if user is not None:
+
+            login(request, user)
+
+            return redirect('/')
+
+        return render(
+            request,
+            'login.html',
+            {'erro': 'Usuário ou senha inválidos'}
+        )
+    
+
+class LogoutView(View):
+
+    def get(self, request):
+
+        logout(request)
+
+        return redirect('/login/')
 
 # ==========================================
 # INDEX
 # ==========================================
 
-class IndexView(View):
+class IndexView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         return render(request, 'index.html')
@@ -17,7 +60,7 @@ class IndexView(View):
 # PRODUTOR
 # ==========================================
 
-class ProdutoresView(View):
+class ProdutorView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -34,7 +77,7 @@ class ProdutoresView(View):
 # PROPRIEDADE
 # ==========================================
 
-class PropriedadesView(View):
+class PropriedadeView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -51,7 +94,7 @@ class PropriedadesView(View):
 # SAFRA
 # ==========================================
 
-class SafrasView(View):
+class SafraView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -68,7 +111,7 @@ class SafrasView(View):
 # TIPO CUSTO
 # ==========================================
 
-class TiposCustoView(View):
+class TipoCustoView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -85,7 +128,7 @@ class TiposCustoView(View):
 # CUSTO PRODUÇÃO
 # ==========================================
 
-class CustosProducaoView(View):
+class CustoProducaoView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -102,7 +145,7 @@ class CustosProducaoView(View):
 # INSUMO
 # ==========================================
 
-class InsumosView(View):
+class InsumoView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -119,7 +162,7 @@ class InsumosView(View):
 # DADO CLIMÁTICO
 # ==========================================
 
-class DadosClimaticosView(View):
+class DadoClimaticoView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -136,7 +179,7 @@ class DadosClimaticosView(View):
 # PREÇO CAFÉ
 # ==========================================
 
-class PrecosCafeView(View):
+class PrecoCafeView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -153,7 +196,7 @@ class PrecosCafeView(View):
 # PROJEÇÃO LUCRO
 # ==========================================
 
-class ProjecoesLucroView(View):
+class ProjecaoLucroView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -170,7 +213,7 @@ class ProjecoesLucroView(View):
 # CENÁRIO
 # ==========================================
 
-class CenariosView(View):
+class CenarioView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -187,7 +230,7 @@ class CenariosView(View):
 # RELATÓRIO
 # ==========================================
 
-class RelatoriosView(View):
+class RelatorioView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -204,7 +247,7 @@ class RelatoriosView(View):
 # USUÁRIO
 # ==========================================
 
-class UsuariosView(View):
+class UsuarioView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -221,7 +264,7 @@ class UsuariosView(View):
 # HISTÓRICO ANÁLISE
 # ==========================================
 
-class HistoricosAnaliseView(View):
+class HistoricoAnaliseView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -238,7 +281,7 @@ class HistoricosAnaliseView(View):
 # PRODUTIVIDADE
 # ==========================================
 
-class ProdutividadesView(View):
+class ProdutividadeView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -255,7 +298,7 @@ class ProdutividadesView(View):
 # INDICADOR ECONÔMICO
 # ==========================================
 
-class IndicadoresEconomicosView(View):
+class IndicadorEconomicoView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
