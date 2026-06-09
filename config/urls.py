@@ -19,6 +19,12 @@ urlpatterns = [
         name='logout'
     ),
 
+    path(
+    'relatorio-tecnico/',
+    RelatorioTecnicoView.as_view(),
+    name='relatorio_tecnico'
+    ),
+
     path('admin/', admin.site.urls),
 
     path('', IndexView.as_view(), name='index'),

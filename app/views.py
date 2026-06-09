@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from decimal import Decimal
 
 class LoginView(View):
 
@@ -46,6 +46,178 @@ class LogoutView(View):
 
         return redirect('/login/')
 
+class RelatorioTecnicoView(LoginRequiredMixin, View):
+
+    def get(self, request):
+
+        context = {
+            'produtores': Produtor.objects.all(),
+            'propriedades': Propriedade.objects.all(),
+            'safras': Safra.objects.all(),
+        }
+
+        return render(
+            request,
+            'relatorio_tecnico_form.html',
+            context
+        )
+
+    def post(self, request):
+
+        produtor_id = request.POST.get('produtor')
+        propriedade_id = request.POST.get('propriedade')
+        safra_id = request.POST.get('safra')
+
+        custo_admin = Decimal(
+            request.POST.get('custo_admin') or '0'
+        )
+
+        custo_financeiro = Decimal(
+            request.POST.get('custo_financeiro') or '0'
+        )
+
+        outros_custos = Decimal(
+            request.POST.get('outros_custos') or '0'
+        )
+
+        preco_esperado = Decimal(
+            request.POST.get('preco_esperado') or '0'
+        )
+
+        produtor = Produtor.objects.get(
+            id=produtor_id
+        )
+
+        propriedade = Propriedade.objects.get(
+            id=propriedade_id
+        )
+
+        safra = Safra.objects.get(
+            id=safra_id
+        )
+
+        custos = CustoProducao.objects.filter(
+            safra=safra
+        )
+
+        custo_total = sum(
+            (custo.valor for custo in custos),
+            Decimal('0')
+        )
+
+        custo_total += (
+            custo_admin +
+            custo_financeiro +
+            outros_custos
+        )
+
+        receita = (
+            Decimal(str(safra.produtividade))
+            * preco_esperado
+        )
+
+        lucro = receita - custo_total
+
+        if lucro > 50000:
+            classificacao = "Excelente"
+
+        elif lucro > 20000:
+            classificacao = "Boa"
+
+        elif lucro > 0:
+            classificacao = "Regular"
+
+        else:
+            classificacao = "Prejuízo"
+
+
+        # Diagnóstico automático
+
+        if classificacao == "Excelente":
+
+            diagnostico = """
+            A propriedade apresenta excelente desempenho econômico,
+            com elevada margem de lucro e boa perspectiva financeira.
+            """
+
+            recomendacao = """
+            Recomenda-se manter o atual modelo de produção e avaliar
+            investimentos em expansão da área produtiva.
+            """
+
+        elif classificacao == "Boa":
+
+            diagnostico = """
+            A propriedade apresenta desempenho satisfatório,
+            com retorno financeiro positivo.
+            """
+
+            recomendacao = """
+            Recomenda-se otimizar custos e acompanhar o mercado
+            para aumentar a rentabilidade.
+            """
+
+        elif classificacao == "Regular":
+
+            diagnostico = """
+            A margem de lucro encontra-se reduzida,
+            indicando necessidade de melhorias operacionais.
+            """
+
+            recomendacao = """
+            Recomenda-se revisar os custos de produção e buscar
+            ganhos de produtividade.
+            """
+
+        else:
+
+            diagnostico = """
+            A análise indica prejuízo econômico na safra avaliada.
+            """
+
+            recomendacao = """
+            Recomenda-se reavaliar o planejamento financeiro e
+            reduzir custos operacionais.
+            """
+
+
+        # Cenários
+
+        cenario_pessimista = receita * Decimal('0.85')
+
+        cenario_realista = receita
+
+        cenario_otimista = receita * Decimal('1.15')
+
+
+        context = {
+
+            'produtores': Produtor.objects.all(),
+            'propriedades': Propriedade.objects.all(),
+            'safras': Safra.objects.all(),
+
+            'produtor': produtor,
+            'propriedade': propriedade,
+            'safra': safra,
+
+            'receita': receita,
+            'custo_total': custo_total,
+            'lucro': lucro,
+            'classificacao': classificacao,
+
+            'diagnostico': diagnostico,
+            'recomendacao': recomendacao,
+
+            'cenario_pessimista': cenario_pessimista,
+            'cenario_realista': cenario_realista,
+            'cenario_otimista': cenario_otimista,
+        }
+
+        return render(
+            request,
+            'relatorio_tecnico_form.html',
+            context
+        )
 # ==========================================
 # INDEX
 # ==========================================
