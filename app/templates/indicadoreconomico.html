@@ -1,44 +1,39 @@
 {% extends 'base.html' %}
 
+{% block title %}Indicadores Econômicos{% endblock %}
+
 {% block content %}
 
-<div class="container mt-5">
+<div class="dashboard-container">
 
-    <h2 class="mb-4">
-        Tabela de Indicadores Econômicos
-    </h2>
+    <header class="page-header">
+        <div class="page-breadcrumb">SAEC / Financeiro</div>
+        <h2 class="page-title">Indicadores Econômicos</h2>
+        <p class="page-subtitle">Métricas de acompanhamento do setor cafeeiro.</p>
+    </header>
 
-    <table class="table table-striped table-bordered">
-
-        <thead class="thead-dark">
-
-            <tr>
-
-                <th>Nome</th>
-                <th>Valor</th>
-                <th>Data</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            {% for indicadores in indicadores %}
-
-            <tr>
-
-                <td>{{ indicadores.nome }}</td>
-                <td>{{ indicadores.valor }}</td>
-                <td>{{ indicadores.data }}</td>
-
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-
-    </table>
+    <div class="dashboard-card">
+        <div class="table-responsive">
+            <table class="table table-striped saec-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for indicadores in indicadores %}
+                    <tr>
+                        <td>{{ indicadores.nome }}</td>
+                        <td>{{ indicadores.valor }}</td>
+                        <td>{{ indicadores.data }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </div>
 

@@ -1,42 +1,37 @@
 {% extends 'base.html' %}
 
+{% block title %}Cenários{% endblock %}
+
 {% block content %}
 
-<div class="container mt-5">
+<div class="dashboard-container">
 
-    <h2 class="mb-4">
-        Tabela de Cenários
-    </h2>
+    <header class="page-header">
+        <div class="page-breadcrumb">SAEC / Financeiro</div>
+        <h2 class="page-title">Cenários</h2>
+        <p class="page-subtitle">Simulações de projeção de lucro por tipo de cenário.</p>
+    </header>
 
-    <table class="table table-striped table-bordered">
-
-        <thead class="thead-dark">
-
-            <tr>
-
-                <th>Tipo</th>
-                <th>Projeção Lucro</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            {% for cenarios in cenarios %}
-
-            <tr>
-
-                <td>{{ cenarios.tipo }}</td>
-                <td>{{ cenarios.projecao_lucro }}</td>
-
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-
-    </table>
+    <div class="dashboard-card">
+        <div class="table-responsive">
+            <table class="table table-striped saec-table">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Projeção Lucro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cenarios in cenarios %}
+                    <tr>
+                        <td>{{ cenarios.tipo }}</td>
+                        <td>{{ cenarios.projecao_lucro }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </div>
 

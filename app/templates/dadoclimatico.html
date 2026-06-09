@@ -1,47 +1,126 @@
 {% extends 'base.html' %}
 
+{% block title %}Dados Climáticos{% endblock %}
+
 {% block content %}
 
-<div class="container mt-5">
+<div class="dashboard-container">
 
-    <h2 class="mb-4">
-        Tabela de Dados Climáticos
-    </h2>
+    <header class="page-header">
+        <div class="page-breadcrumb">SAEC / Clima</div>
+        <h2 class="page-title">Dados Climáticos</h2>
+        <p class="page-subtitle">Temperatura, precipitação e histórico por propriedade.</p>
+    </header>
 
-    <table class="table table-striped table-bordered">
+    <div class="dashboard-card">
+        <div class="table-responsive">
+            <table class="table table-striped saec-table">
+                <thead>
+                    <tr>
+                        <th>Temperatura</th>
+                        <th>Chuva</th>
+                        <th>Data</th>
+                        <th>Propriedade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dado in dados %}
+                    <tr>
+                        <td>{{ dado.temperatura }}</td>
+                        <td>{{ dado.chuva }}</td>
+                        <td>{{ dado.data }}</td>
+                        <td>{{ dado.propriedade }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-        <thead class="thead-dark">
-
-            <tr>
-
-                <th>Temperatura</th>
-                <th>Chuva</th>
-                <th>Data</th>
-                <th>Propriedade</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            {% for dados_climaticos in dados_climaticos %}
-
-            <tr>
-
-                <td>{{ dados_climaticos.temperatura }}</td>
-                <td>{{ dados_climaticos.chuva }}</td>
-                <td>{{ dados_climaticos.data }}</td>
-                <td>{{ dados_climaticos.propriedade }}</td>
-
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-
-    </table>
+    <section class="chart-section">
+        <div class="chart-card">
+            <h3 class="chart-card-title">Evolução Climática</h3>
+            <div class="chart-container">
+                <canvas id="graficoClima"></canvas>
+            </div>
+        </div>
+    </section>
 
 </div>
 
+{{ dados_json|json_script:"dados-climaticos" }}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const dados = JSON.parse(
+    document.getElementById("dados-climaticos").textContent
+);
+
+const labels = dados.map(d => d.data);
+const temperatura = dados.map(d => d.temperatura);
+const chuva = dados.map(d => d.chuva);
+
+const chartColors = {
+    coffee: '#5d4037',
+    green: '#40916c',
+    blue: '#457b9d',
+    grid: 'rgba(44, 24, 16, 0.06)',
+    text: '#6b5e54'
+};
+
+new Chart(document.getElementById('graficoClima'), {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Temperatura (°C)',
+                data: temperatura,
+                borderColor: chartColors.coffee,
+                backgroundColor: 'rgba(93, 64, 55, 0.08)',
+                borderWidth: 2,
+                tension: 0.35,
+                fill: true,
+                pointRadius: 3,
+                pointHoverRadius: 5
+            },
+            {
+                label: 'Chuva (mm)',
+                data: chuva,
+                borderColor: chartColors.blue,
+                backgroundColor: 'rgba(69, 123, 157, 0.08)',
+                borderWidth: 2,
+                tension: 0.35,
+                fill: true,
+                pointRadius: 3,
+                pointHoverRadius: 5
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+            legend: {
+                labels: { color: chartColors.text, font: { family: 'Inter, sans-serif', size: 12 } }
+            }
+        },
+        scales: {
+            x: {
+                grid: { color: chartColors.grid },
+                ticks: { color: chartColors.text, font: { size: 11 } }
+            },
+            y: {
+                beginAtZero: true,
+                grid: { color: chartColors.grid },
+                ticks: { color: chartColors.text, font: { size: 11 } }
+            }
+        }
+    }
+});
+</script>
 {% endblock %}

@@ -1,40 +1,35 @@
 {% extends 'base.html' %}
 
+{% block title %}Tipos de Custo{% endblock %}
+
 {% block content %}
 
-<div class="container mt-5">
+<div class="dashboard-container">
 
-    <h2 class="mb-4">
-        Tabela de Tipos de Custo
-    </h2>
+    <header class="page-header">
+        <div class="page-breadcrumb">SAEC / Financeiro</div>
+        <h2 class="page-title">Tipos de Custo</h2>
+        <p class="page-subtitle">Classificação das despesas de produção.</p>
+    </header>
 
-    <table class="table table-striped table-bordered">
-
-        <thead class="thead-dark">
-
-            <tr>
-
-                <th>Nome</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            {% for tipos_custo in tipos_custo %}
-
-            <tr>
-
-                <td>{{ tipos_custo.nome }}</td>
-
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-
-    </table>
+    <div class="dashboard-card">
+        <div class="table-responsive">
+            <table class="table table-striped saec-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tipos_custo in tipos_custo %}
+                    <tr>
+                        <td>{{ tipos_custo.nome }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </div>
 

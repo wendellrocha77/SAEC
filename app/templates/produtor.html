@@ -1,46 +1,41 @@
 {% extends 'base.html' %}
 
+{% block title %}Produtores{% endblock %}
+
 {% block content %}
 
-<div class="container mt-5">
+<div class="dashboard-container">
 
-    <h2 class="mb-4">
-        Tabela de Produtores
-    </h2>
+    <header class="page-header">
+        <div class="page-breadcrumb">SAEC / Cadastros</div>
+        <h2 class="page-title">Produtores</h2>
+        <p class="page-subtitle">Cadastro de produtores rurais vinculados ao sistema.</p>
+    </header>
 
-    <table class="table taable-striped table-bordered">
-
-        <thead class="thead-dark">
-
-            <tr>
-
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Email</th>
-                <th>Telefone</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            {% for produtores in produtores %}
-
-            <tr>
-
-                <td>{{ produtores.nome }}</td>
-                <td>{{ produtores.cpf }}</td>
-                <td>{{ produtores.email }}</td>
-                <td>{{ produtores.telefone }}</td>
-
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-
-    </table>
+    <div class="dashboard-card">
+        <div class="table-responsive">
+            <table class="table table-striped saec-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produtores in produtores %}
+                    <tr>
+                        <td>{{ produtores.nome }}</td>
+                        <td>{{ produtores.cpf }}</td>
+                        <td>{{ produtores.email }}</td>
+                        <td>{{ produtores.telefone }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </div>
 

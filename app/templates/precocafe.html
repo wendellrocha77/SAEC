@@ -1,45 +1,108 @@
 {% extends 'base.html' %}
 
+{% block title %}Preço do Café{% endblock %}
+
 {% block content %}
 
-<div class="container mt-5">
+<div class="dashboard-container">
 
-    <h2 class="mb-4">
-        Tabela de Preços do Café
-    </h2>
+    <header class="page-header">
+        <div class="page-breadcrumb">SAEC / Mercado</div>
+        <h2 class="page-title">Preços do Café</h2>
+        <p class="page-subtitle">Histórico de cotações por mercado e data.</p>
+    </header>
 
-    <table class="table table-striped table-bordered">
+    <div class="dashboard-card">
+        <div class="table-responsive">
+            <table class="table table-striped saec-table">
+                <thead>
+                    <tr>
+                        <th>Valor da Saca</th>
+                        <th>Data</th>
+                        <th>Mercado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for preco in precos %}
+                    <tr>
+                        <td>R$ {{ preco.valor_saca }}</td>
+                        <td>{{ preco.data }}</td>
+                        <td>{{ preco.mercado }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-        <thead class="thead-dark">
-
-            <tr>
-
-                <th>Valor da Saca</th>
-                <th>Data</th>
-                <th>Mercado</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            {% for preco in precos %}
-
-            <tr>
-
-                <td>R$ {{ preco.valor_saca }}</td>
-                <td>{{ preco.data }}</td>
-                <td>{{ preco.mercado }}</td>
-
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-
-    </table>
+    <section class="chart-section">
+        <div class="chart-card">
+            <h3 class="chart-card-title">Evolução do Preço do Café</h3>
+            <div class="chart-container">
+                <canvas id="graficoCafe"></canvas>
+            </div>
+        </div>
+    </section>
 
 </div>
 
+{{ precos_json|json_script:"precos-data" }}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const precos = JSON.parse(
+    document.getElementById("precos-data").textContent
+);
+
+const labels = precos.map(p => p.data);
+const valores = precos.map(p => p.valor_saca);
+
+const chartColors = {
+    green: '#2d6a4f',
+    fill: 'rgba(45, 106, 79, 0.1)',
+    grid: 'rgba(44, 24, 16, 0.06)',
+    text: '#6b5e54'
+};
+
+new Chart(document.getElementById('graficoCafe'), {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Preço da Saca (R$)',
+            data: valores,
+            borderColor: chartColors.green,
+            backgroundColor: chartColors.fill,
+            tension: 0.35,
+            borderWidth: 2,
+            fill: true,
+            pointRadius: 3,
+            pointHoverRadius: 5
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                labels: { color: chartColors.text, font: { family: 'Inter, sans-serif', size: 12 } }
+            }
+        },
+        scales: {
+            x: {
+                grid: { color: chartColors.grid },
+                ticks: { color: chartColors.text, font: { size: 11 } }
+            },
+            y: {
+                beginAtZero: false,
+                grid: { color: chartColors.grid },
+                ticks: { color: chartColors.text, font: { size: 11 } }
+            }
+        }
+    }
+});
+</script>
 {% endblock %}

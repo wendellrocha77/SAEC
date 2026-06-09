@@ -1,46 +1,41 @@
 {% extends 'base.html' %}
 
+{% block title %}Propriedades{% endblock %}
+
 {% block content %}
 
-<div class="container mt-5">
+<div class="dashboard-container">
 
-    <h2 class="mb-4">
-        Tabela de Propriedades
-    </h2>
+    <header class="page-header">
+        <div class="page-breadcrumb">SAEC / Cadastros</div>
+        <h2 class="page-title">Propriedades</h2>
+        <p class="page-subtitle">Áreas produtivas e localização por produtor.</p>
+    </header>
 
-    <table class="table table-striped table-bordered">
-
-        <thead class="thead-dark">
-
-            <tr>
-
-                <th>Nome</th>
-                <th>Localização</th>
-                <th>Tamanho Área</th>
-                <th>Produtor</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            {% for propriedade in propriedades %}
-
-            <tr>
-
-                <td>{{ propriedade.nome }}</td>
-                <td>{{ propriedade.localizacao }}</td>
-                <td>{{ propriedade.tamanho_area }}</td>
-                <td>{{ propriedade.produtor }}</td>
-
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-
-    </table>
+    <div class="dashboard-card">
+        <div class="table-responsive">
+            <table class="table table-striped saec-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Localização</th>
+                        <th>Tamanho Área</th>
+                        <th>Produtor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for propriedade in propriedades %}
+                    <tr>
+                        <td>{{ propriedade.nome }}</td>
+                        <td>{{ propriedade.localizacao }}</td>
+                        <td>{{ propriedade.tamanho_area }}</td>
+                        <td>{{ propriedade.produtor }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </div>
 

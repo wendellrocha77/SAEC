@@ -1,137 +1,40 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
+{% extends 'base.html' %}
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
+{% block title %}Início{% endblock %}
 
-<body>
+{% block content %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+<div class="dashboard-container">
 
-    <a class="navbar-brand" href="/">SAEC</a>
-
-    <button class="navbar-toggler" type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation">
-
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-
-        <ul class="navbar-nav">
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/">Home</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/produtor/">Produtor</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/propriedade/">Propriedade</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/safra/">Safra</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/tipocusto/">Tipo Custo</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/custoproducao/">Custo Produção</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/insumo/">Insumo</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/dadoclimatico/">Dado Climático</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/precocafe/">Preço Café</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/projecaolucro/">Projeção Lucro</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/cenario/">Cenário</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/relatorio/">Relatório</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/usuario/">Usuário</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/historicoanalise/">Histórico</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/produtividade/">Produtividade</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/indicadoreconomico/">Indicador Econômico</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/admin/">Administração</a>
-            </li>
-
-        </ul>
-
+    <div class="dashboard-hero">
+        <span class="dashboard-hero-badge">Painel Analítico</span>
+        <h1>Olá, é bom te ver por aqui</h1>
+        <p class="lead">
+            Bem-vindo ao SAEC — Sistema de Análise Econômica Cafeeira.
+            Acompanhe produtividade, custos, clima e projeções de lucro
+            em um painel integrado para tomada de decisão.
+        </p>
     </div>
 
-</nav>
-
-<div class="container mt-5">
-
-    <div class="jumbotron text-center">
-
-        <h1 class="display-4">
-            Olá, é bom te ver por aqui
-        </h1>
-
-        <p class="lead">
-            Esta é a página inicial do sistema de análise de dados SAEC
-        </p>
-
-        <p class="lead">
-            Seja Bem Vindo(A)
-        </p>
-
+    <div class="metrics-grid mt-4">
+        <div class="metric-card metric-card--profit">
+            <span class="metric-card-label">Projeção de Lucro</span>
+            <span class="metric-card-value">Análise financeira</span>
+        </div>
+        <div class="metric-card metric-card--cost">
+            <span class="metric-card-label">Custos de Produção</span>
+            <span class="metric-card-value">Controle operacional</span>
+        </div>
+        <div class="metric-card metric-card--productivity">
+            <span class="metric-card-label">Produtividade</span>
+            <span class="metric-card-value">Rendimento por safra</span>
+        </div>
+        <div class="metric-card metric-card--climate">
+            <span class="metric-card-label">Dados Climáticos</span>
+            <span class="metric-card-value">Monitoramento ambiental</span>
+        </div>
     </div>
 
 </div>
 
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
-<!-- Popper -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-
-<!-- Bootstrap JS -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+{% endblock %}

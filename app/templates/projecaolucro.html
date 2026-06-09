@@ -1,46 +1,41 @@
 {% extends 'base.html' %}
 
+{% block title %}Projeção de Lucro{% endblock %}
+
 {% block content %}
 
-<div class="container mt-5">
+<div class="dashboard-container">
 
-    <h2 class="mb-4">
-        Tabela de Projeções de Lucro
-    </h2>
+    <header class="page-header">
+        <div class="page-breadcrumb">SAEC / Financeiro</div>
+        <h2 class="page-title">Projeções de Lucro</h2>
+        <p class="page-subtitle">Estimativas de receita, custo e lucro por safra.</p>
+    </header>
 
-    <table class="table table-striped table-bordered">
-
-        <thead class="thead-dark">
-
-            <tr>
-
-                <th>Custo Total</th>
-                <th>Receita Estimada</th>
-                <th>Lucro Estimado</th>
-                <th>Safra</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            {% for projecoes in projecoes %}
-
-            <tr>
-
-                <td>{{ projecoes.custo_total }}</td>
-                <td>{{ projecoes.receita_estimada }}</td>
-                <td>{{ projecoes.lucro_estimado }}</td>
-                <td>{{ projecoes.safra }}</td>
-
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-
-    </table>
+    <div class="dashboard-card">
+        <div class="table-responsive">
+            <table class="table table-striped saec-table">
+                <thead>
+                    <tr>
+                        <th>Custo Total</th>
+                        <th>Receita Estimada</th>
+                        <th>Lucro Estimado</th>
+                        <th>Safra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for projecoes in projecoes %}
+                    <tr>
+                        <td>{{ projecoes.custo_total }}</td>
+                        <td>{{ projecoes.receita_estimada }}</td>
+                        <td>{{ projecoes.lucro_estimado }}</td>
+                        <td>{{ projecoes.safra }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </div>
 

@@ -1,46 +1,41 @@
 {% extends 'base.html' %}
 
+{% block title %}Custo de Produção{% endblock %}
+
 {% block content %}
 
-<div class="container mt-5">
+<div class="dashboard-container">
 
-    <h2 class="mb-4">
-        Tabela de Custos de Produção
-    </h2>
+    <header class="page-header">
+        <div class="page-breadcrumb">SAEC / Financeiro</div>
+        <h2 class="page-title">Custos de Produção</h2>
+        <p class="page-subtitle">Despesas operacionais registradas por safra.</p>
+    </header>
 
-    <table class="table table-striped table-bordered">
-
-        <thead class="thead-dark">
-
-            <tr>
-
-                <th>Tipo</th>
-                <th>Valor</th>
-                <th>Data</th>
-                <th>Safra</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            {% for custo in custos %}
-
-            <tr>
-
-                <td>{{ custo.tipo }}</td>
-                <td>{{ custo.valor }}</td>
-                <td>{{ custo.data }}</td>
-                <td>{{ custo.safra }}</td>
-
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-
-    </table>
+    <div class="dashboard-card">
+        <div class="table-responsive">
+            <table class="table table-striped saec-table">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                        <th>Safra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for custo in custos %}
+                    <tr>
+                        <td>{{ custo.tipo }}</td>
+                        <td>{{ custo.valor }}</td>
+                        <td>{{ custo.data }}</td>
+                        <td>{{ custo.safra }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </div>
 

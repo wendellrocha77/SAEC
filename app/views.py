@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from decimal import Decimal
+from app.models import PrecoCafe
 
 class LoginView(View):
 
@@ -45,6 +46,8 @@ class LogoutView(View):
         logout(request)
 
         return redirect('/login/')
+    
+
 
 class RelatorioTecnicoView(LoginRequiredMixin, View):
 
@@ -338,12 +341,24 @@ class DadoClimaticoView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
-        dados_climaticos = DadoClimatico.objects.all()
+        dados = DadoClimatico.objects.order_by('data')
+
+        dados_json = [
+            {
+                "data": d.data.strftime("%d/%m/%Y"),
+                "temperatura": float(d.temperatura),
+                "chuva": float(d.chuva),
+            }
+            for d in dados
+        ]
 
         return render(
             request,
             'dadoclimatico.html',
-            {'dados_climaticos': dados_climaticos}
+            {
+                'dados': dados,
+                'dados_json': dados_json
+            }
         )
 
 
@@ -355,14 +370,26 @@ class PrecoCafeView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
-        precos = PrecoCafe.objects.all()
+        precos = PrecoCafe.objects.order_by('data')
+
+        # 🔴 conversão correta para JSON (resolve o erro)
+        precos_json = [
+            {
+                "data": p.data.strftime("%d/%m/%Y"),
+                "valor_saca": float(p.valor_saca),
+                "mercado": p.mercado
+            }
+            for p in precos
+        ]
 
         return render(
             request,
             'precocafe.html',
-            {'precos': precos}
+            {
+                'precos': precos,          # tabela Django normal
+                'precos_json': precos_json # gráfico JSON seguro
+            }
         )
-
 
 # ==========================================
 # PROJEÇÃO LUCRO

@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 
+{% block title %}Relatório Técnico{% endblock %}
+
 {% block content %}
 
-<div class="container mt-4">
+<div class="dashboard-container">
 
-    <h2 class="mb-4">
-        Relatório Técnico Automatizado
-    </h2>
+    <header class="page-header">
+        <div class="page-breadcrumb">SAEC / Relatórios</div>
+        <h2 class="page-title">Relatório Técnico Automatizado</h2>
+        <p class="page-subtitle">Gere análises técnicas e econômicas com base nos dados cadastrados.</p>
+    </header>
+
     <div class="alert alert-info">
-
-    Selecione a propriedade e a safra desejadas.
-    O sistema utilizará os dados cadastrados no SAEC para gerar
-    automaticamente um relatório técnico e econômico.
-
+        Selecione a propriedade e a safra desejadas.
+        O sistema utilizará os dados cadastrados no SAEC para gerar
+        automaticamente um relatório técnico e econômico.
     </div>
 
     <form method="post">
@@ -20,256 +23,171 @@
         {% csrf_token %}
 
         <div class="card mb-4">
-    <div class="card-header bg-success text-white">
-        Dados da Análise
-    </div>
-
-    <div class="card-body">
-
-        <div class="form-group">
-            <label>Produtor</label>
-            <select name="produtor" class="form-control">
-                {% for produtor in produtores %}
-                    <option value="{{ produtor.id }}">
-                        {{ produtor.nome }}
-                    </option>
-                {% endfor %}
-            </select>
+            <div class="card-header bg-success">
+                Dados da Análise
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Produtor</label>
+                    <select name="produtor" class="form-control">
+                        {% for produtor in produtores %}
+                        <option value="{{ produtor.id }}">{{ produtor.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Propriedade</label>
+                    <select name="propriedade" class="form-control">
+                        {% for propriedade in propriedades %}
+                        <option value="{{ propriedade.id }}">{{ propriedade.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Safra</label>
+                    <select name="safra" class="form-control">
+                        {% for safra in safras %}
+                        <option value="{{ safra.id }}">{{ safra.ano }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label>Propriedade</label>
-            <select name="propriedade" class="form-control">
-                {% for propriedade in propriedades %}
-                    <option value="{{ propriedade.id }}">
-                        {{ propriedade.nome }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Safra</label>
-            <select name="safra" class="form-control">
-                {% for safra in safras %}
-                    <option value="{{ safra.id }}">
-                        {{ safra.ano }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-
-    </div>
-</div>
 
         <div class="card mb-4">
-
-    <div class="card-header bg-warning">
-        Custos Extras
-    </div>
-
-    <div class="card-body">
-
-        <div class="form-group">
-            <label>Custos Administrativos</label>
-            <input type="number"
-                   step="0.01"
-                    min="0"
-                   name="custo_admin"
-                   class="form-control">
+            <div class="card-header bg-warning">
+                Custos Extras
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Custos Administrativos</label>
+                    <input type="number" step="0.01" min="0" name="custo_admin" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Custos Financeiros</label>
+                    <input type="number" step="0.01" min="0" name="custo_financeiro" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Outros Custos</label>
+                    <input type="number" step="0.01" min="0" name="outros_custos" class="form-control">
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label>Custos Financeiros</label>
-            <input type="number"
-                   step="0.01"
-                    min="0"
-                   name="custo_financeiro"
-                   class="form-control">
-        </div>
-
-        <div class="form-group">
-            <label>Outros Custos</label>
-            <input type="number"
-                   step="0.01"
-                    min="0"
-                   name="outros_custos"
-                   class="form-control">
-        </div>
-
-    </div>
-
-</div>
 
         <div class="card mb-4">
-
-    <div class="card-header bg-info text-white">
-        Mercado
-    </div>
-
-    <div class="card-body">
-
-        <div class="form-group">
-            <label>Preço Esperado da Saca</label>
-            <input type="number"
-                   step="0.01"
-                    min="0"
-                   name="preco_esperado"
-                   class="form-control">
+            <div class="card-header bg-info">
+                Mercado
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Preço Esperado da Saca</label>
+                    <input type="number" step="0.01" min="0" name="preco_esperado" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Variação Esperada (%)</label>
+                    <input type="number" step="0.01" min="0" name="variacao" value="10" class="form-control">
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label>Variação Esperada (%)</label>
-            <input type="number"
-                   step="0.01"
-                    min="0"
-                   name="variacao"
-                   value="10"
-                   class="form-control">
-        </div>
-
-    </div>
-
-</div>
-        <div class="card mb-4">
-
-    <div class="card-header bg-primary text-white">
-        Condições Climáticas
-    </div>
-
-    <div class="card-body">
-
-        <div class="form-group">
-            <label>Risco de Geada</label>
-
-            <select name="geada"
-                    class="form-control">
-
-                <option>Baixo</option>
-                <option>Médio</option>
-                <option>Alto</option>
-
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Risco de Seca</label>
-
-            <select name="seca"
-                    class="form-control">
-
-                <option>Baixo</option>
-                <option>Médio</option>
-                <option>Alto</option>
-
-            </select>
-        </div>
-
-    </div>
-
-</div>
 
         <div class="card mb-4">
-
-        <div class="card-header bg-secondary text-white">
-            Observações Técnicas
+            <div class="card-header bg-primary">
+                Condições Climáticas
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Risco de Geada</label>
+                    <select name="geada" class="form-control">
+                        <option>Baixo</option>
+                        <option>Médio</option>
+                        <option>Alto</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Risco de Seca</label>
+                    <select name="seca" class="form-control">
+                        <option>Baixo</option>
+                        <option>Médio</option>
+                        <option>Alto</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
-        <div class="card-body">
-
-            <textarea
-                name="observacoes"
-                rows="5"
-                class="form-control">
-            </textarea>
+        <div class="card mb-4">
+            <div class="card-header bg-secondary">
+                Observações Técnicas
+            </div>
+            <div class="card-body">
+                <textarea name="observacoes" rows="5" class="form-control"></textarea>
+            </div>
         </div>
-    </div>
 
-
-
-        <div class="text-center">
-
-            <button
-                type="submit"
-                class="btn btn-success btn-lg">
-
+        <div class="text-center mb-4">
+            <button type="submit" class="btn btn-success btn-lg">
                 Gerar Relatório Técnico
-
             </button>
-
         </div>
 
     </form>
 
-{% if classificacao %}
-<hr>
+    {% if classificacao %}
 
-<h5>Diagnóstico Técnico</h5>
+    <hr class="section-divider">
 
-<p>
-    {{ diagnostico }}
-</p>
-
-<h5>Recomendações</h5>
-
-<p>
-    {{ recomendacao }}
-</p>
-<hr>
-
-<h5>Cenários Econômicos</h5>
-
-<ul>
-
-    <li>
-        Cenário Pessimista:
-        R$ {{ cenario_pessimista }}
-    </li>
-
-    <li>
-        Cenário Realista:
-        R$ {{ cenario_realista }}
-    </li>
-
-    <li>
-        Cenário Otimista:
-        R$ {{ cenario_otimista }}
-    </li>
-
-</ul>
-<div class="card mt-5">
-
-    <div class="card-header bg-success text-white">
-
-        Resultado da Análise
-
+    <div class="dashboard-card mb-4">
+        <div class="dashboard-card-header">Diagnóstico Técnico</div>
+        <div class="dashboard-card-body">
+            <p>{{ diagnostico }}</p>
+        </div>
     </div>
 
-    <div class="card-body">
-
-        <p>
-            <strong>Receita:</strong>
-            R$ {{ receita }}
-        </p>
-
-        <p>
-            <strong>Custo Total:</strong>
-            R$ {{ custo_total }}
-        </p>
-
-        <p>
-            <strong>Lucro:</strong>
-            R$ {{ lucro }}
-        </p>
-
-        <p>
-            <strong>Classificação:</strong>
-            {{ classificacao }}
-        </p>
-
+    <div class="dashboard-card mb-4">
+        <div class="dashboard-card-header">Recomendações</div>
+        <div class="dashboard-card-body">
+            <p>{{ recomendacao }}</p>
+        </div>
     </div>
+
+    <div class="dashboard-card mb-4">
+        <div class="dashboard-card-header">Cenários Econômicos</div>
+        <div class="dashboard-card-body">
+            <ul class="mb-0">
+                <li>Cenário Pessimista: R$ {{ cenario_pessimista }}</li>
+                <li>Cenário Realista: R$ {{ cenario_realista }}</li>
+                <li>Cenário Otimista: R$ {{ cenario_otimista }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-success">
+            Resultado da Análise
+        </div>
+        <div class="card-body">
+            <div class="metrics-grid">
+                <div class="metric-card metric-card--profit">
+                    <span class="metric-card-label">Receita</span>
+                    <span class="metric-card-value">R$ {{ receita }}</span>
+                </div>
+                <div class="metric-card metric-card--cost">
+                    <span class="metric-card-label">Custo Total</span>
+                    <span class="metric-card-value">R$ {{ custo_total }}</span>
+                </div>
+                <div class="metric-card metric-card--productivity">
+                    <span class="metric-card-label">Lucro</span>
+                    <span class="metric-card-value">R$ {{ lucro }}</span>
+                </div>
+                <div class="metric-card metric-card--climate">
+                    <span class="metric-card-label">Classificação</span>
+                    <span class="metric-card-value">{{ classificacao }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
 
 </div>
 
-{% endif %}
 {% endblock %}

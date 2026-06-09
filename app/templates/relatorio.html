@@ -1,44 +1,39 @@
 {% extends 'base.html' %}
 
+{% block title %}Relatórios{% endblock %}
+
 {% block content %}
 
-<div class="container mt-5">
+<div class="dashboard-container">
 
-    <h2 class="mb-4">
-        Tabela de Relatórios
-    </h2>
+    <header class="page-header">
+        <div class="page-breadcrumb">SAEC / Relatórios</div>
+        <h2 class="page-title">Relatórios</h2>
+        <p class="page-subtitle">Documentos gerados por propriedade e data.</p>
+    </header>
 
-    <table class="table table-striped table-bordered">
-
-        <thead class="thead-dark">
-
-            <tr>
-
-                <th>Data Geração</th>
-                <th>Descrição</th>
-                <th>Propriedade</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            {% for relatorios in relatorios %}
-
-            <tr>
-
-                <td>{{ relatorios.data_geracao }}</td>
-                <td>{{ relatorios.descricao }}</td>
-                <td>{{ relatorios.propriedade }}</td>
-
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-
-    </table>
+    <div class="dashboard-card">
+        <div class="table-responsive">
+            <table class="table table-striped saec-table">
+                <thead>
+                    <tr>
+                        <th>Data Geração</th>
+                        <th>Descrição</th>
+                        <th>Propriedade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for relatorios in relatorios %}
+                    <tr>
+                        <td>{{ relatorios.data_geracao }}</td>
+                        <td>{{ relatorios.descricao }}</td>
+                        <td>{{ relatorios.propriedade }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </div>
 

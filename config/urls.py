@@ -1,4 +1,4 @@
-
+from app.views import PrecoCafeView
 from django.contrib import admin
 from django.urls import path
 from app.views import *
@@ -7,6 +7,11 @@ print("URLS CARREGADAS")
 
 urlpatterns = [
 
+    path(
+        'grafico-cafe/',
+        PrecoCafeView.as_view(),
+        name='grafico_cafe'
+    ),
     path(
         'login/',
         LoginView.as_view(),

@@ -1,44 +1,39 @@
 {% extends 'base.html' %}
 
+{% block title %}Insumos{% endblock %}
+
 {% block content %}
 
-<div class="container mt-5">
+<div class="dashboard-container">
 
-    <h2 class="mb-4">
-        Tabela de Insumos
-    </h2>
+    <header class="page-header">
+        <div class="page-breadcrumb">SAEC / Produção</div>
+        <h2 class="page-title">Insumos</h2>
+        <p class="page-subtitle">Materiais utilizados na produção cafeeira.</p>
+    </header>
 
-    <table class="table table-striped table-bordered">
-
-        <thead class="thead-dark">
-
-            <tr>
-
-                <th>Nome</th>
-                <th>Custo Unitário</th>
-                <th>Quantidade</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            {% for insumos in insumos %}
-
-            <tr>
-
-                <td>{{ insumos.nome }}</td>
-                <td>{{ insumos.custo_unitario }}</td>
-                <td>{{ insumos.quantidade }}</td>
-
-            </tr>
-
-            {% endfor %}
-
-        </tbody>
-
-    </table>
+    <div class="dashboard-card">
+        <div class="table-responsive">
+            <table class="table table-striped saec-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Custo Unitário</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for insumos in insumos %}
+                    <tr>
+                        <td>{{ insumos.nome }}</td>
+                        <td>{{ insumos.custo_unitario }}</td>
+                        <td>{{ insumos.quantidade }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </div>
 
